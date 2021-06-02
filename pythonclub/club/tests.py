@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Meeting, MeetingMinutes, Resource, Event
 import datetime
+from .forms import ResourceForm, MeetingForm
 
 # Create your tests here.
 class MeetingTest(TestCase):
@@ -25,3 +26,42 @@ class ResourceTest(TestCase):
 
    def test_tablename(self):
        self.assertEqual(str(Resource._meta.db_table), 'resource')
+
+
+class NewResourceTest(TestCase):
+    def test_resourceform(self):
+        data={
+            'resourcename':'Full Stack Python - Django', 
+            'resourcetype':'Resource', 
+            'URL':'https://www.fullstackpython.com/django.html', 
+            'dateentered':'6/2/21', 
+            'user':'hanan', 
+            'description':'N/A'
+        }
+        form=ResourceForm (data)
+        self.assertTrue(form.is_valid)
+    #failed test
+    def test_Resourceform_Invalid(self):
+        data={
+            'resourcename':'Full Stack Python - Django', 
+            'resourcetype':'Resource', 
+            'URL':'https://www.fullstackpython.com/django.html', 
+            'dateentered':'6/2/21', 
+            'user':'hanan', 
+            'description':'N/A'
+        }
+        form=ResourceForm (data)
+        self.assertFalse(form.is_valid)
+
+
+class NewMeetingTest(TestCase):
+    def test_meetingform(self):
+        data={
+            'meetingtitle':'Meeting 4', 
+            'meetingdate':'6/4/21', 
+            'meetingtime':'1:30 PM', 
+            'location':'Virtual', 
+            'agenda':'Setup continued'
+        }
+        form=MeetingForm (data)
+        self.assertTrue(form.is_valid)
