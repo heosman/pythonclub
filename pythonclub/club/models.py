@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Meeting(models.Model):
     meetingtitle = models.CharField(max_length=255)
-    meetingdate = models.DateField()
+    meetingdate = models.DateField(null=True, blank=True)
     meetingtime = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     agenda = models.CharField(max_length=255)
@@ -32,7 +32,7 @@ class Resource(models.Model):
     resourcename = models.CharField(max_length=255)
     resourcetype = models.CharField(max_length=255)
     URL = models.URLField()
-    dateentered = models.DateField()
+    dateentered = models.DateField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     description = models.TextField()
 
